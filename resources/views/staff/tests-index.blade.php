@@ -61,8 +61,7 @@
                                 style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit"><i
-                                        class="fas fa-trash p-2 text-lg text-red-500 hover:text-red-600"></i></button>
+                                <i class="fas fa-trash p-2 text-lg text-red-500 hover:text-red-600 delete"></i>
                             </form>
                         </td>
                     </tr>
@@ -83,5 +82,30 @@
             setTimeout(() => {  
                 alert.style.display = 'none';        
             }, 60000);
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const deleteButtons = document.querySelectorAll('.delete');
+                
+                deleteButtons.forEach(function(button) {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+-                        const form = button.closest('form');
+                        
+                        Swal.fire({
+                            title: "Are you sure?",
+                            text: "You want to delete this Test?",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonText: 'Yes',
+                            cancelButtonText: 'No',
+                            reverseButtons: true
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                form.submit();
+                            }
+                        });
+                    });
+                });
+            });
     </script>
 </x-app-layout>

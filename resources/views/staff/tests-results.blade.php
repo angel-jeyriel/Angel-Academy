@@ -28,7 +28,7 @@
                     @endforeach
                     @if ($attempts->isEmpty())
                     <tr>
-                        <td colspan="3">No attempts found for this test.</td>
+                        <td colspan="3" class="p-2">No Student has attempted this test yet.</td>
                     </tr>
                     @endif
                 </tbody>
