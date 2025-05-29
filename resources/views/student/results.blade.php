@@ -26,12 +26,14 @@
         <h1 class="text-2xl mb-1">Test Results</h1>
         <h3 class="text-lg">{{ $attempt->test->title }}</h3>
         <p>Score: {{ $attempt->score }} / {{ $attempt->test->questions->count() }}</p>
-        <p>Completed: {{ $attempt->completed_at->format('Y-m-d H:i:s') }}</p>
+        <p>Percentage: {{ round(($attempt->score)/($attempt->test->questions->count()) * 100, 1) }}%</p>
+        <p>Completed: {{ $attempt->completed_at->format('H:i d-m-Y') }}</p>
         <a href="{{ route('home') }}">
             <x-primary-button class="mt-3">
                 Back to Home
             </x-primary-button>
         </a>
+        <input type="hidden" id="course-id" value="{{ $attempt->test->subject->course->id }}">
     </div>
 
     <script>

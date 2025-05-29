@@ -36,6 +36,9 @@
             {{ $slot }}
         </main>
     </div>
+    <script>
+        window.authUserId = {{ auth()->id() ?? 'null' }};
+    </script>
 </body>
 
 </html>

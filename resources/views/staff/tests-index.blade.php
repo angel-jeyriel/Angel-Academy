@@ -75,37 +75,37 @@
     <script>
         const alert = document.getElementById('alert');
     
-            function deleteAlert() {
-                alert.style.display = 'none';
-            }
-    
-            setTimeout(() => {  
-                alert.style.display = 'none';        
-            }, 60000);
+        function deleteAlert() {
+            alert.style.display = 'none';
+        }
 
-            document.addEventListener('DOMContentLoaded', function () {
-                const deleteButtons = document.querySelectorAll('.delete');
-                
-                deleteButtons.forEach(function(button) {
-                    button.addEventListener('click', function(e) {
-                        e.preventDefault();
--                        const form = button.closest('form');
-                        
-                        Swal.fire({
-                            title: "Are you sure?",
-                            text: "You want to delete this Test?",
-                            icon: "warning",
-                            showCancelButton: true,
-                            confirmButtonText: 'Yes',
-                            cancelButtonText: 'No',
-                            reverseButtons: true
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                form.submit();
-                            }
-                        });
+        setTimeout(() => {  
+            alert.style.display = 'none';        
+        }, 60000);
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteButtons = document.querySelectorAll('.delete');
+            
+            deleteButtons.forEach(function(button) {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const form = button.closest('form');
+                    
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "You want to delete this Test?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes',
+                        cancelButtonText: 'No',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
                     });
                 });
             });
+        });
     </script>
 </x-app-layout>

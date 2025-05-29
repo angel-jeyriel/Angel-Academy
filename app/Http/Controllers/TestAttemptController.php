@@ -12,6 +12,17 @@ use Illuminate\Support\Facades\Auth;
 
 class TestAttemptController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware(function ($request, $next) {
+            if (Auth::user()->isStaff()) {
+                return redirect()->route('home')->with('error', 'Access denied.');
+            }
+            return $next($request);
+        });
+    }
+
     public function dashboard()
     {
         $courses = Course::with('subjects.tests')->get();

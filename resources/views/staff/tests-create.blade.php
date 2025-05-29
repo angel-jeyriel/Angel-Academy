@@ -1,9 +1,6 @@
 <x-app-layout>
     <div class="container">
         <h1 class='text-2xl mb-2'>Create Test</h1>
-        {{-- @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-        @endif --}}
         <form action="{{ route('staff.tests.store') }}" method="POST">
             @csrf
             <div class="mb-3">
@@ -92,7 +89,7 @@
                 <button type="button" onclick="addQuestion()"
                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Add
                     Question</button>
-                <button type="submit"
+                <button id="createTest"
                     class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Create
                     Test</button>
             </div>
@@ -106,7 +103,8 @@
             const div = document.createElement('div');
             div.className = 'question mb-3';
             div.innerHTML = `
-                <h4 class="text-lg">Question ${++questionCount}</h4>
+                <div id="question-${++questionCount}">
+                <h4 class="text-lg">Question ${questionCount}</h4>
                 <div class="mb-3">
                     <label class="form-label">Question Text</label>
                     <textarea name="questions[${questionCount-1}][text]" class="form-control" required></textarea>
@@ -154,8 +152,46 @@
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
+                <button type="button"
+                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                    onclick="removeQuestion(${questionCount})">Remove Question</button>
+                </div>
             `;
             container.appendChild(div);
         }
+
+        // Sweet Alert 
+        document.addEventListener('DOMContentLoaded', function () {
+            const createTest = document.querySelectorAll('#createTest');
+            
+            createTest.forEach(function(button) {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const form = button.closest('form');
+                    
+                    Swal.fire({
+                        title: "Are you sure?",
+                        text: "You want to create this Test?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes',
+                        cancelButtonText: 'No',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+            });
+        });
+
+        function removeQuestion(index) {
+            const questionDiv = document.getElementById(`question-${index}`);
+            if (questionDiv) {
+                questionDiv.remove();
+            }
+        }
+
     </script>
 </x-app-layout>

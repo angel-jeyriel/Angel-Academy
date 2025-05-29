@@ -54,5 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .subscribed(() => {
                 console.log(`Successfully subscribed to submissions.${courseId}`);
             });
+    } else {
+        console.error('courseId is undefined');
     }
 });
