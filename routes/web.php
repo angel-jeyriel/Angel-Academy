@@ -24,6 +24,12 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('tests', TestController::class);
         Route::get('tests/{test}/results', [TestController::class, 'results'])->name('tests.results');
         Route::get('tests/{test}/pdf', [TestController::class, 'generatePdf'])->name('tests.pdf');
+
+        Route::get('tests/course/create', [TestController::class, 'createCourse'])->name('create.course');
+        Route::post('tests/course/add', [TestController::class, 'addCourse'])->name('add.course');
+
+        Route::get('tests/subject/create', [TestController::class, 'createSubject'])->name('create.subject');
+        Route::post('tests/subject/add', [TestController::class, 'addSubject'])->name('add.subject');
     });
 
     Route::prefix('student')->name('student.')->group(function () {

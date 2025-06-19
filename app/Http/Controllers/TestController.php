@@ -128,6 +128,37 @@ class TestController extends Controller
         return view('staff.tests-results', compact('test', 'attempts'));
     }
 
+    public function createCourse()
+    {
+        return view('staff.create-course');
+    }
+
+    public function addCourse(Request $request)
+    {
+        $course = Course::create([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
+
+        return back();
+    }
+
+    public function createSubject()
+    {
+        $courses = Course::all();
+        return view('staff.create-subject', compact('courses'));
+    }
+
+    public function addSubject(Request $request)
+    {
+        $subject = Subject::create([
+            'name' => $request->name,
+            'course_id' => $request->course_id,
+        ]);
+
+        return back();
+    }
+
     public function generatePdf(Test $test)
     {
         $attempts = $test->testAttempts()->with('user')->get();
