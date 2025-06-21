@@ -1,0 +1,18 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      php: 8.2
+      nodejs: 16
+    commands:
+      - composer install --no-dev --optimize-autoloader
+      - npm install
+      - npm run build
+  build:
+    commands:
+      - php artisan migrate --force
+      - php artisan test
+artifacts:
+  files:
+    - '**/*'
+  name: laravel-app

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TestAttemptController;
 use App\Http\Controllers\TestController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -38,6 +39,13 @@ Route::middleware(['auth'])->group(function () {
         Route::post('test/{attempt}/submit', [TestAttemptController::class, 'submit'])->name('test.submit');
         Route::get('results/{attempt}', [TestAttemptController::class, 'results'])->name('results');
     });
+});
+
+Route::get('/run-migration', function () {
+    Artisan::call('optimize:clear');
+    Artisan::call('migrate:fresh --seed');
+
+    return "Migrations executed successfully!";
 });
 
 require __DIR__ . '/auth.php';
