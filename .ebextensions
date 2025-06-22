@@ -1,0 +1,11 @@
+files:
+   "/var/www/html/storage":
+     mode: "000775"
+     owner: "webapp-user"
+     group: "webapp-user"
+     recursive: true
+   "/var/www/html/bootstrap/cache":
+     mode: "775"
+     owner: "webapp-user"
+     group: "webapp-user"
+     recursive: true
